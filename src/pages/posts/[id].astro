@@ -1,0 +1,35 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import FeatureArt from '../../components/FeatureArt.astro';
+export async function getStaticPaths() {
+    return (await getCollection('posts')).map((post) => ({ params: { id: post.id }, props: { post } }));
+}
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Layout title={`${post.data.title} — Cloud Notes`} description={post.data.description}>
+    <main id="main" class="article-page">
+        <a class="back-link" href="/#articles">
+            ← Back to the journal
+        </a>
+        <header class="article-header">
+            <span class="category">{post.data.category}</span>
+            <h1>{post.data.title}</h1>
+            <p>{post.data.description}</p>
+            <div class="post-meta">
+                Cloud Notes <span>·</span> {post.data.date}
+                <span>·</span>
+                {post.data.readTime}
+            </div>
+        </header>
+        <FeatureArt kind={post.data.art} />
+        <article class="prose">
+            <Content />
+        </article>
+        <a class="read-link" href="/#articles">
+            Explore more notes ↗
+        </a>
+    </main>
+</Layout>

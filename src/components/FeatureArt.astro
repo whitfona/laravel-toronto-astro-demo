@@ -1,0 +1,69 @@
+---
+interface Props {
+    kind: string;
+}
+const { kind } = Astro.props;
+---
+
+<div class:list={['feature-art', kind]} aria-hidden="true">
+    <span class="art-label">LARAVEL CLOUD / {kind.toUpperCase()}</span>
+    {kind === 'preview' ? (
+        <div class="branch-diagram">
+            <span class="branch-main">◉ main</span>
+            <span class="branch-line"></span>
+            <div class="preview-window">
+                <div class="window-top">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <span>feat/something-great</span>
+                </div>
+                <div class="window-body">
+                    <span class="status-dot"></span> Your next idea.
+                    <br />
+                    <strong>Already live.</strong>
+                    <small>✓ Preview deployed</small>
+                </div>
+            </div>
+            <span class="branch-tag">↳ Pull request #42</span>
+        </div>
+    ) : kind === 'secrets' ? (
+        <div class="secret-art">
+            <span class="lock">⌑</span>
+            <code>
+                API_KEY <b>••••••••</b>
+            </code>
+            <code>
+                APP_SECRET <b>••••••••</b>
+            </code>
+            <span class="secret-caption">One source. Every environment.</span>
+        </div>
+    ) : kind === 'deploy' ? (
+        <div class="deploy-art">
+            <span>
+                01 <b>Build</b> ✓
+            </span>
+            <span>
+                02 <b>Deploy</b> ✓
+            </span>
+            <span>
+                03 <b>Go live</b> ↗
+            </span>
+        </div>
+    ) : (
+        <div class="terminal-art">
+            <span>~/your-next-idea</span>
+            <code>
+                <b>❯</b> cloud deploy -n
+            </code>
+            <code class="terminal-success">
+                ✓ A little less ops.
+                <br /> A lot more shipping.
+            </code>
+            <i>▌</i>
+        </div>
+    )}
+    <span class="art-number">
+        {kind === 'preview' ? '01' : kind === 'secrets' ? '02' : kind === 'deploy' ? '03' : '04'} / FIELD NOTES
+    </span>
+</div>
