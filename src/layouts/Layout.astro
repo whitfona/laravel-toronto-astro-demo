@@ -1,25 +1,45 @@
 ---
 import '../styles/global.css';
-
 interface Props {
     title: string;
+    description?: string;
 }
-
-const { title } = Astro.props;
+const { title, description = 'Practical field notes on building and shipping with Laravel Cloud.' } = Astro.props;
 ---
 
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width" />
-        <meta name="generator" content={Astro.generator} />
-        <link rel="preconnect" href="https://fonts.bunny.net" />
-        <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
+        <meta name="description" content={description} />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <title>{title}</title>
     </head>
     <body>
-        <slot />
+        <a class="skip-link" href="#main">
+            Skip to content
+        </a>
+        <div class="shell">
+            <header class="site-header">
+                <a class="brand" href="/">
+                    <span class="brand-icon">↗</span> Cloud Notes<span class="brand-period">.</span>
+                </a>
+                <nav aria-label="Main navigation">
+                    <a href="/#articles">The journal</a>
+                    <a href="/#about">About</a>
+                    <a class="docs-link" href="https://laravel.com/cloud/docs">
+                        Explore Cloud ↗
+                    </a>
+                </nav>
+            </header>
+            <slot />
+            <footer>
+                <a class="brand" href="/">
+                    Cloud Notes.
+                </a>
+                <span>An independent journal for curious developers.</span>
+                <a href="https://laravel.com/cloud/docs">Laravel Cloud docs ↗</a>
+            </footer>
+        </div>
     </body>
 </html>
